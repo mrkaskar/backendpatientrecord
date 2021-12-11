@@ -5,7 +5,7 @@ app.use(cors());
 const patient = [
   {
     reg: "01001",
-    name: "Daw Yin Mway",
+    name: "Kyle Ellwood",
     phone: "093423121",
     age: "40",
     address: "No.2, Aye Thar Yar Street, Dagon, Yangon",
@@ -18,7 +18,7 @@ const patient = [
   },
   {
     reg: "01002",
-    name: "U San Win",
+    name: "San Win",
     phone: "093232311",
     age: "12",
     address: "No.2, Aung Pan Street, Hle Dan, Yangon",
@@ -31,7 +31,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "Daw Aye Mya Khin",
+    name: "Aye Mya Khin",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
@@ -44,7 +44,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "Daw Aye Aye Khin",
+    name: "Jacques Lowry",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
@@ -57,7 +57,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "Daw Aye Mya Khin Khin",
+    name: "Karishma Mclean",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
@@ -70,7 +70,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "Daw Aye Mya Aye",
+    name: "Alexandre Kaye",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
@@ -83,7 +83,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "U Aye",
+    name: "Aye Sein",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
@@ -96,7 +96,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "U K",
+    name: "Hugo Hines",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
@@ -109,7 +109,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "U Kyi",
+    name: "Greta Mora",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
@@ -122,7 +122,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "U Kyi Aye",
+    name: "Adyson Benjamin",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
@@ -135,7 +135,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "U Khin",
+    name: "Alden Juarez",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
@@ -148,7 +148,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "U Khin Mya",
+    name: "Carlie Mcmillan",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
@@ -161,7 +161,7 @@ const patient = [
   },
   {
     reg: "01003",
-    name: "Daw Mi",
+    name: "Levison Allen",
     phone: "093256211",
     age: "30",
     address: "No.245, Min Khaung Street, Tamwe, Yangon",
