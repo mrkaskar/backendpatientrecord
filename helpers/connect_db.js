@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let mongoDB = "mongodb+srv://kzinthant:kk123@cluster0.wzwkc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+let mongoDB = "mongodb+srv://dbuser:dd123@cluster0.hvpaw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
