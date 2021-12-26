@@ -7,6 +7,9 @@ const Patient = new Schema({
   phone: String,
   age: Number,
   address: String,
+  date: Date,
+  folderId: String,
+  total: Number,
   treatment: [{
     type: Schema.Types.ObjectId,
     ref: "Treatment"

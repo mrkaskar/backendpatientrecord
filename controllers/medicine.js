@@ -1,5 +1,6 @@
 const MedicineModel = require("../models/Medicine");
 const { getData, addData, updateData, deleteData } = require('../services/db_operation');
+const { updateAll } = require("./all");
 
 const getAllMedicine = async (req, res) => {
   res.json(await getData(MedicineModel));
@@ -9,11 +10,20 @@ const addMedicine = async (req, res) => {
   data.stock = +data.stock;
   try{
     await addData(MedicineModel, data);
+    await updateAll('medicine', 1 , 'increase');
     res.status(201).json('added');  
   }
   catch(e){
     res.status(500).json(e.message);  
   }
+}
+
+const reduceStock = async (id, amount) => {
+  const med = await MedicineModel.findById(id);
+  const newvalue = med.stock - +amount; 
+  return await MedicineModel.findOneAndUpdate(id, {
+      stock: newvalue 
+    });
 }
 
 const updateMedicine = async (req, res) => {
@@ -36,6 +46,7 @@ const deleteMedicine = async (req,res) => {
   const id = req.body.id;
   try{
     await deleteData(MedicineModel, id);
+    await updateAll('medicine', 1 , 'decrease');
     res.status(201).json('deleted');
   }
   catch(e) {
@@ -47,5 +58,6 @@ module.exports = {
   getAllMedicine,
   addMedicine,
   updateMedicine,
-  deleteMedicine 
+  deleteMedicine,
+  reduceStock
 }

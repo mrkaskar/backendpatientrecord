@@ -8,6 +8,7 @@ const addTreatment = async (req, res) => {
   const data = req.body;
   try{
     await addData(TreatmentModel, data);
+    await updateAll('treatment', 1 , 'increase');
     res.status(201).json('added');
   }
   catch(e) {
@@ -33,6 +34,7 @@ const deleteTreatment = async (req,res) => {
   const id = req.body.id;
   try{
     await deleteData(TreatmentModel, id);
+    await updateAll('treatment', 1 , 'decrease');
     res.status(201).json('deleted');
   }
   catch(e) {
