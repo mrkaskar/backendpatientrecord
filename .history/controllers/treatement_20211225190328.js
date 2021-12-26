@@ -1,6 +1,5 @@
 const TreatmentModel = require("../models/Treatment");
 const { getData, addData, updateData, deleteData } = require('../services/db_operation');
-const { updateAll } = require("./all");
 
 const getTreatment = async (req, res) => {
   res.json(await getData(TreatmentModel));

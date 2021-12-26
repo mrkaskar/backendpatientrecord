@@ -1,6 +1,5 @@
 const TreatmentModel = require("../models/Treatment");
 const { getData, addData, updateData, deleteData } = require('../services/db_operation');
-const { updateAll } = require("./all");
 
 const getTreatment = async (req, res) => {
   res.json(await getData(TreatmentModel));
@@ -9,7 +8,7 @@ const addTreatment = async (req, res) => {
   const data = req.body;
   try{
     await addData(TreatmentModel, data);
-    await updateAll('treatment', 1 , 'increase');
+    //await updateAll('treatment', 1 , 'increase');
     res.status(201).json('added');
   }
   catch(e) {
