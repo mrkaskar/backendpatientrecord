@@ -56,14 +56,14 @@ const addPatient = async (req, res) => {
   medicineIds = medicine.map(e => e.id);
   medicineCount = medicine.map(e => e.count);
 
-  for (m of medicine) {
-    await reduceStock(m.id, +m.count); 
-  }
-  
+  medicine.forEach(async (e) => {
+      await reduceStock(e.id, e.count);  
+  });
+
   images = JSON.parse(images);
   let fileids = [];
 
-  const folderId = await createFolder(`${regNum}-${name}`, '1B_Qfjlz8KayC5R5bmL_nd3NehFwKaUnb');
+  const folderId = await createFolder(`${regNum}-${name}`, '1zsauKHjblrQInZb8fXQCK0acgjQx8f1O');
   
   if(images.length > 0) {
       await uploadImagesToDrive(images, regNum, name, fileids, folderId);
@@ -107,33 +107,11 @@ const addPatient = async (req, res) => {
 }
 
 const updatePatient = async (req, res) => {
-  let { id, name, phone, age, address, total, oldTotal, regNum, treatments, medicine, images, folderId, date, oldStock } = req.body;
+  let { id, name, phone, age, address, total, oldTotal, regNum, treatments, medicine, images, folderId, date } = req.body;
   treatments = JSON.parse(treatments);
   medicine = JSON.parse(medicine);
-  oldStock = JSON.parse(oldStock);
-
   medicineIds = medicine.map(e => e.id);
   medicineCount = medicine.map(e => +e.count);
-
-  oldStockIds = oldStock.map(e => e.id);
-  newMeds = medicine.filter(e => {
-      if(!oldStockIds.includes(e.id)) return true;
-      return false;
-  });
-  for (m of newMeds) {
-    await reduceStock(m.id, +m.count); 
-  }
-  
-  for (m of medicine) {
-    for(o of oldStock)  {
-      if(m.id === o.id)  {
-        if(+m.count > +o.count)  {
-          await reduceStock(m.id, +m.count - +o.count); 
-        }
-      }
-    }
-  }
-  
 
   await updateName(folderId, `${regNum}-${name}`);
 

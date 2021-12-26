@@ -57,7 +57,8 @@ const addPatient = async (req, res) => {
   medicineCount = medicine.map(e => e.count);
 
   for (m of medicine) {
-    await reduceStock(m.id, +m.count); 
+    console.log(m.id, m.count);
+    await reduceStock(m.id, m.count); 
   }
   
   images = JSON.parse(images);
@@ -107,33 +108,11 @@ const addPatient = async (req, res) => {
 }
 
 const updatePatient = async (req, res) => {
-  let { id, name, phone, age, address, total, oldTotal, regNum, treatments, medicine, images, folderId, date, oldStock } = req.body;
+  let { id, name, phone, age, address, total, oldTotal, regNum, treatments, medicine, images, folderId, date } = req.body;
   treatments = JSON.parse(treatments);
   medicine = JSON.parse(medicine);
-  oldStock = JSON.parse(oldStock);
-
   medicineIds = medicine.map(e => e.id);
   medicineCount = medicine.map(e => +e.count);
-
-  oldStockIds = oldStock.map(e => e.id);
-  newMeds = medicine.filter(e => {
-      if(!oldStockIds.includes(e.id)) return true;
-      return false;
-  });
-  for (m of newMeds) {
-    await reduceStock(m.id, +m.count); 
-  }
-  
-  for (m of medicine) {
-    for(o of oldStock)  {
-      if(m.id === o.id)  {
-        if(+m.count > +o.count)  {
-          await reduceStock(m.id, +m.count - +o.count); 
-        }
-      }
-    }
-  }
-  
 
   await updateName(folderId, `${regNum}-${name}`);
 

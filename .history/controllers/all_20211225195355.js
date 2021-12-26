@@ -34,6 +34,7 @@ const updateAll = async (key, dvalue, type) => {
     else {
       all[key] -= dvalue;
     } 
+    console.log(all);
    try {
      await AllModel.findByIdAndUpdate(all.id, all);
    }

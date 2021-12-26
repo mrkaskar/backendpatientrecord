@@ -120,20 +120,6 @@ const updatePatient = async (req, res) => {
       if(!oldStockIds.includes(e.id)) return true;
       return false;
   });
-  for (m of newMeds) {
-    await reduceStock(m.id, +m.count); 
-  }
-  
-  for (m of medicine) {
-    for(o of oldStock)  {
-      if(m.id === o.id)  {
-        if(+m.count > +o.count)  {
-          await reduceStock(m.id, +m.count - +o.count); 
-        }
-      }
-    }
-  }
-  
 
   await updateName(folderId, `${regNum}-${name}`);
 

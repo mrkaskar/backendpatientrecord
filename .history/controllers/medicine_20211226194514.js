@@ -25,6 +25,7 @@ const reduceStock = async (id, amount) => {
     $inc: {'stock': -amount}
   })
 }
+reduceStock('61c13ceb8a3005a261718a16', 1);
 
 const updateMedicine = async (req, res) => {
   const data = req.body;

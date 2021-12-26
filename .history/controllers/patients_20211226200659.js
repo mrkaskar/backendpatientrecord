@@ -118,22 +118,8 @@ const updatePatient = async (req, res) => {
   oldStockIds = oldStock.map(e => e.id);
   newMeds = medicine.filter(e => {
       if(!oldStockIds.includes(e.id)) return true;
-      return false;
+    return false;
   });
-  for (m of newMeds) {
-    await reduceStock(m.id, +m.count); 
-  }
-  
-  for (m of medicine) {
-    for(o of oldStock)  {
-      if(m.id === o.id)  {
-        if(+m.count > +o.count)  {
-          await reduceStock(m.id, +m.count - +o.count); 
-        }
-      }
-    }
-  }
-  
 
   await updateName(folderId, `${regNum}-${name}`);
 

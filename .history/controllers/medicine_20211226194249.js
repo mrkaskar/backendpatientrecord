@@ -19,11 +19,9 @@ const addMedicine = async (req, res) => {
 }
 
 const reduceStock = async (id, amount) => {
-  await MedicineModel.findOneAndUpdate({
-    _id: id
-  }, {
-    $inc: {'stock': -amount}
-  })
+  mongoose.set('useFindAndModify', false);
+
+  await MedicineModel.findOne
 }
 
 const updateMedicine = async (req, res) => {

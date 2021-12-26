@@ -19,11 +19,17 @@ const addMedicine = async (req, res) => {
 }
 
 const reduceStock = async (id, amount) => {
-  await MedicineModel.findOneAndUpdate({
-    _id: id
-  }, {
-    $inc: {'stock': -amount}
-  })
+  const med = await MedicineModel.findById(id);
+  const newvalue = med.stock - +amount; 
+  console.log(med);
+  try {
+   await MedicineModel.findOneAndUpdate(id, {
+      stock: newvalue 
+    });
+  }
+  catch(e) {
+    console.log(e.message);
+  }
 }
 
 const updateMedicine = async (req, res) => {
