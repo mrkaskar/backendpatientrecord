@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const { listImages, download } = require('./helpers/drive_functions');
-const root = path.dirname(require.main.filename);
 
 var cors = require('cors');
 app.use(cors());
@@ -26,7 +25,7 @@ app.use('/api/dashboard', allRoutes);
 async function downloadAllImages () {
   const imagesIds = await listImages();
   for(id of imagesIds){
-    const checkExist = fs.existsSync(`${root}/temp/images/${id}.jpg`);
+    const checkExist = fs.existsSync(`./temp/images/${id}.jpg`);
     if(!checkExist){
       download(id); 
     }

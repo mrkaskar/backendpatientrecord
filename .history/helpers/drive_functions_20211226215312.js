@@ -64,7 +64,7 @@ listImages();
 
 async function download(id) {
   const drive = google.drive({version: 'v3', auth: await auth()});
-  const dest = fs.createWriteStream(`${root}/temp/images/${id}.jpg`);
+  const dest = fs.createWriteStream(`./temp/images/${id}.jpg`);
   try {
   const result = await drive.files.get(
     { fileId:id, alt: 'media' },
