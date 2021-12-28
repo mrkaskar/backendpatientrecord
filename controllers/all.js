@@ -41,7 +41,7 @@ const updateAll = async (key, dvalue, type) => {
     console.log(e.message);
   }
 }
-
+//updateAll('users',1, 'increase');
 
 module.exports = {
   getAll,

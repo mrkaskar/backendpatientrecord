@@ -18,7 +18,7 @@ const root = path.dirname(require.main.filename);
 const app = express();
 
 app.use(cors({
-  origin: 'localhost:3000',
+  origin: 'http://localhost:3000',
   credentials: true,
 }));
 app.use(session({secret: 'cats',

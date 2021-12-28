@@ -140,8 +140,8 @@ const updatePatient = async (req, res) => {
 
   images = JSON.parse(images);
 
-  const noChangedImages = images.filter(e => e.dataURL.startsWith('http')).map(e => e.dataURL.slice(-33));
-  const uploadImages = images.filter(e => !e.dataURL.startsWith('http'));
+  const noChangedImages = images.filter(e => e.dataURL.startsWith('/api/')).map(e => e.dataURL.slice(-33));
+  const uploadImages = images.filter(e => !e.dataURL.startsWith('/api/'));
 
   const fileids = noChangedImages;
   
