@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.96156c1b.chunk.css",
-    "main.js": "/static/js/main.b1d66a7d.chunk.js",
-    "main.js.map": "/static/js/main.b1d66a7d.chunk.js.map",
+    "main.js": "/static/js/main.401f0dee.chunk.js",
+    "main.js.map": "/static/js/main.401f0dee.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.3d867c3f.js",
     "runtime-main.js.map": "/static/js/runtime-main.3d867c3f.js.map",
     "static/js/2.92a75dce.chunk.js": "/static/js/2.92a75dce.chunk.js",
@@ -20,7 +20,7 @@
     "static/media/drop.0b4c2ec0.svg": "/static/media/drop.0b4c2ec0.svg",
     "static/media/home.a88bb6bc.svg": "/static/media/home.a88bb6bc.svg",
     "static/media/left.72b8d8a8.svg": "/static/media/left.72b8d8a8.svg",
-    "static/media/logo.6fe334dd.jpg": "/static/media/logo.6fe334dd.jpg",
+    "static/media/logo.74019e66.jpg": "/static/media/logo.74019e66.jpg",
     "static/media/logout.83f2c69b.svg": "/static/media/logout.83f2c69b.svg",
     "static/media/magnify.95cca4d8.svg": "/static/media/magnify.95cca4d8.svg",
     "static/media/medicine.2bf40aec.svg": "/static/media/medicine.2bf40aec.svg",
@@ -49,6 +49,6 @@
     "static/js/runtime-main.3d867c3f.js",
     "static/js/2.92a75dce.chunk.js",
     "static/css/main.96156c1b.chunk.css",
-    "static/js/main.b1d66a7d.chunk.js"
+    "static/js/main.401f0dee.chunk.js"
   ]
 }
