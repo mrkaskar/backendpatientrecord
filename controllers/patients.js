@@ -6,6 +6,7 @@ const fs = require('fs');
 var path = require('path');
 const { reduceStock } = require('./medicine');
 const root = path.dirname(require.main.filename);
+const env = require('../envconfig');
 
 
 const getPatient = async (req, res) => {
@@ -63,7 +64,7 @@ const addPatient = async (req, res) => {
   images = JSON.parse(images);
   let fileids = [];
 
-  const folderId = await createFolder(`${regNum}-${name}`, '1B_Qfjlz8KayC5R5bmL_nd3NehFwKaUnb');
+  const folderId = await createFolder(`${regNum}-${name}`, env.folderId);
   
   if(images.length > 0) {
       await uploadImagesToDrive(images, regNum, name, fileids, folderId);

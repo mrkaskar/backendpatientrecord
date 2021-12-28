@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
+const env = require('../envconfig');
 
-let mongoDB = "mongodb+srv://dbuser:dd123@cluster0.hvpaw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+let mongoDB = env.database;
 
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 
