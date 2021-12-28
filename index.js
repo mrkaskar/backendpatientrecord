@@ -30,12 +30,12 @@ app.use(passport.session());
 
 //for heroku deployment
 
-//var uploadDir = '/app/temp/upload';
+var uploadDir = '/app/temp/upload';
 
-//if (!fs.existsSync(uploadDir)){
- //   fs.mkdirSync(uploadDir, { recursive: true });
-//}
-//
+if (!fs.existsSync(uploadDir)){
+   fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json({limit: '50mb'}))
