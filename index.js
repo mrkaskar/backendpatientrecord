@@ -20,7 +20,6 @@ const app = express();
 app.use(cors({
   origin: env.front,
   credentials: true,
-  exposedHeaders: ["set-cookie"],
 }));
 app.use(session({secret: 'cats',
   resave: false,
