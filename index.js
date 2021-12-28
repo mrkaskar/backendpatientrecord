@@ -18,9 +18,8 @@ const root = path.dirname(require.main.filename);
 const app = express();
 
 app.use(cors({
-  origin: env.front,
+  origin: 'localhost:3000',
   credentials: true,
-  exposedHeaders: ['set-cookie'],
 }));
 app.use(session({secret: 'cats',
   resave: false,
@@ -54,10 +53,10 @@ app.get(
 app.get(
   "/google/callback",
   passport.authenticate("google",{
-    failureRedirect: `${env.front}/login`
+    failureRedirect: '/login'
   }),
   (req, res) => {
-    res.redirect(env.front)
+    res.redirect('/')
   }
 );
 
@@ -70,10 +69,10 @@ app.get("/checkauth",(req, res) => {
   res.status(401).json('Not authenticate');
 });
 
-app.get('/logout/', (req, res) => {
+app.get('/logout', (req, res) => {
   req.logout();
   req.user = null;
-  res.redirect(env.front)
+  res.redirect('/')
 })
 app.get('/resetrevenue', async (req, res) => {
     let all = await getData(AllModel);
@@ -117,6 +116,13 @@ async function downloadAllImages () {
 }
 
 downloadAllImages();
+
+
+  app.use(express.static('build'));
+
+  app.get('*', (req,res)=>{
+      res.sendFile(path.resolve(__dirname,'build','index.html'));
+  })
 
 
 const port = process.env.PORT  || 5000;

@@ -42,7 +42,6 @@ const updateAll = async (key, dvalue, type) => {
   }
 }
 
-updateAll('users', 1, 'decrease');
 
 module.exports = {
   getAll,
