@@ -30,10 +30,10 @@ app.use(passport.session());
 
 //for heroku deployment
 
-var uploadDir = '/app/temp/upload';
+var uploaddir = '/app/temp/upload';
 
-if (!fs.existsSync(uploadDir)){
-   fs.mkdirSync(uploadDir, { recursive: true });
+if (!fs.existssync(uploaddir)){
+   fs.mkdirsync(uploaddir, { recursive: true });
 }
 
 
