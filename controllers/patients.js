@@ -278,7 +278,7 @@ const updatePatient = async (req, res) => {
      date,
      treatment: treatmentIds,
      treatmentDates,
-     medicine: medIds,
+     medicine: medicineIds,
      medCount: medCount,
      medDates,
      images: fileids
