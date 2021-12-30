@@ -20,9 +20,10 @@ const addMedicine = async (req, res) => {
 
 const reduceStock = async (id, amount) => {
   await MedicineModel.findOneAndUpdate({
-    _id: id
+    _id: id,
+    stock: {$gte: 0}
   }, {
-    $inc: {'stock': -amount}
+    $inc: {stock: -amount}
   })
 }
 

@@ -1,5 +1,6 @@
 const { download, createFolder, upload, updateName, listFiles, deleteFile } = require('../helpers/drive_functions');
 const PatientModel = require('../models/Patients');
+const MedicineModel = require('../models/Medicine');
 const { getData, addData, updateData, deleteData } = require('../services/db_operation');
 const { updateAll } = require('./all');
 const fs = require('fs');
@@ -54,11 +55,31 @@ const addPatient = async (req, res) => {
   let { name, phone, age, address, regNum, treatments, total, medicine, images , date} = req.body;
   treatments = JSON.parse(treatments);
   medicine = JSON.parse(medicine);
-  medicineIds = medicine.map(e => e.id);
-  medicineCount = medicine.map(e => e.count);
+  let treatmentIds = [];
+  let treatmentDates = [];
+  Object.keys(treatments).forEach(tdate => {
+    treatments[tdate].forEach(t => {
+      treatmentDates.push(tdate);  
+      treatmentIds.push(t.id); 
+    });
+  });
+  
 
-  for (m of medicine) {
-    await reduceStock(m.id, +m.count); 
+  let medIds = [];
+  let medDates = [];
+  let medCount = [] ;
+
+  Object.keys(medicine).forEach(mdate => {
+    medicine[mdate].forEach(m => {
+      medDates.push(mdate);  
+      medIds.push(m.id); 
+      medCount.push(m.count);
+    });
+  });
+
+  for(var i = 0; i < medIds.length; i++){
+     await reduceStock(medIds[i], +medCount[i]); 
+    
   }
   
   images = JSON.parse(images);
@@ -90,15 +111,17 @@ const addPatient = async (req, res) => {
      total: +total,
      address: address,
      date,
-     treatment: treatments,
-     medicine: medicineIds,
-     medCount: medicineCount,
+     treatment: treatmentIds,
+     treatmentDates,
+     medicine: medIds,
+     medCount: medCount,
+     medDates,
      images: fileids
    }
    try{
-    await addData(PatientModel, data);
-    await updateAll('patients', 1 , 'increase');
-    await updateAll('revenue', +total , 'increase');
+     await addData(PatientModel, data);
+     await updateAll('patients', 1 , 'increase');
+     await updateAll('revenue', +total , 'increase');
     res.status(201).json('added');  
   }
   catch(e){
@@ -108,34 +131,110 @@ const addPatient = async (req, res) => {
 }
 
 const updatePatient = async (req, res) => {
-  let { id, name, phone, age, address, total, oldTotal, regNum, treatments, medicine, images, folderId, date, oldStock } = req.body;
+  let { id,
+     name,
+     phone,
+     age,
+     address,
+     total,
+     oldTotal,
+     regNum,
+     treatments,
+     medicine,
+     images,
+     folderId,
+     date,
+    } = req.body;
   treatments = JSON.parse(treatments);
   medicine = JSON.parse(medicine);
-  oldStock = JSON.parse(oldStock);
 
-  medicineIds = medicine.map(e => e.id);
-  medicineCount = medicine.map(e => +e.count);
-
-  oldStockIds = oldStock.map(e => e.id);
-  newMeds = medicine.filter(e => {
-      if(!oldStockIds.includes(e.id)) return true;
-      return false;
+  let treatmentIds = [];
+  let treatmentDates = [];
+  Object.keys(treatments).forEach(tdate => {
+    treatments[tdate].forEach(t => {
+      treatmentDates.push(tdate);  
+      treatmentIds.push(t.id); 
+    });
   });
-  for (m of newMeds) {
-    await reduceStock(m.id, +m.count); 
-  }
   
-  for (m of medicine) {
-    for(o of oldStock)  {
-      if(m.id === o.id)  {
-        if(+m.count > +o.count)  {
-          await reduceStock(m.id, +m.count - +o.count); 
-        }
+  let medicineIds = [];
+  let medDates = [];
+  let medCount = [] ;
+
+  Object.keys(medicine).forEach(mdate => {
+    medicine[mdate].forEach(m => {
+      medDates.push(mdate);  
+      medicineIds.push(m.id); 
+      medCount.push(m.count);
+    });
+  });
+  
+ //to reduce stock 
+  const newMedicineStock = {};
+
+  Object.keys(medicine).forEach(e => {
+      medicine[e].forEach(mobj => {
+        if(!newMedicineStock[mobj.id]){
+          newMedicineStock[mobj.id] = 0;  
+        } 
+          newMedicineStock[mobj.id] += mobj.count;  
+      });
+  });
+
+  const medIds = [];
+  
+  Object.keys(newMedicineStock).forEach(mid => {
+      medIds.push(mid);
+  });
+
+ //get Old Stock of Patient 
+  const patientData = await PatientModel.findOne({id });
+  const patientMeds = patientData.medicine; 
+  const patientMedsCount = patientData.medCount; 
+  
+  const oldMedicineStock = {};
+  const oldMedIds = [];
+
+  for(let i = 0; i < patientMeds.length; i++) {
+    const omid = patientMeds[i].toString();    
+    oldMedIds.push(omid);
+    if(medIds.includes(omid)) {
+      if(!oldMedicineStock[omid]){
+        oldMedicineStock[omid] = 0;
       }
+        oldMedicineStock[omid] += patientMedsCount[i];
     }
   }
-  
 
+  let toReduceMedIds = []
+  let toReduce = [];
+  Object.keys(newMedicineStock).forEach(keyid => {
+      if(newMedicineStock[keyid] > oldMedicineStock[keyid]) {
+        toReduceMedIds.push(keyid); 
+        toReduce.push(newMedicineStock[keyid] - oldMedicineStock[keyid]);
+      }
+  });
+
+  for(let i = 0; i < toReduceMedIds.length; i++) {
+    await reduceStock(toReduceMedIds[i], +toReduce[i]); 
+  }
+
+  let toReduceNewIds = [];
+  let toReduceNew = [];
+
+  Object.keys(newMedicineStock).forEach(keyid => {
+    if(!oldMedIds.includes(keyid)) {
+     //this is new medicine 
+      toReduceNewIds.push(keyid);
+      toReduceNew.push(newMedicineStock[keyid]);
+    }
+  });
+
+  for(let i = 0; i < toReduceNewIds.length; i++) {
+    await reduceStock(toReduceNewIds[i], +toReduceNew[i]); 
+  }
+
+  
   await updateName(folderId, `${regNum}-${name}`);
 
   images = JSON.parse(images);
@@ -173,12 +272,15 @@ const updatePatient = async (req, res) => {
      name: name,
      phone: phone,
      age: +age,
-     address: address,
+     folderId,
      total: +total,
-     date: date,
-     treatment: treatments,
-     medicine: medicineIds,
-     medCount: medicineCount,
+     address: address,
+     date,
+     treatment: treatmentIds,
+     treatmentDates,
+     medicine: medIds,
+     medCount: medCount,
+     medDates,
      images: fileids
    }
    try{
