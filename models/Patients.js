@@ -22,6 +22,7 @@ const Patient = new Schema({
   }],
   medCount: [Number],
   medDates: [String],
+  remark: [String],
   images: [String]
 },
 {

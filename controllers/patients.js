@@ -52,7 +52,7 @@ const uploadImagesToDrive = async (images, regNum, name, fileids, folderId) => {
 
 const addPatient = async (req, res) => {
   
-  let { name, phone, age, address, regNum, treatments, total, medicine, images , date} = req.body;
+  let { name, phone, age, address, regNum, treatments, total, medicine, images , date, remark} = req.body;
   treatments = JSON.parse(treatments);
   medicine = JSON.parse(medicine);
   let treatmentIds = [];
@@ -119,6 +119,7 @@ const addPatient = async (req, res) => {
      medicine: medIds,
      medCount: medCount,
      medDates,
+     remark,
      images: fileids
    }
    try{
@@ -147,6 +148,7 @@ const updatePatient = async (req, res) => {
      images,
      folderId,
      date,
+     remark
     } = req.body;
   treatments = JSON.parse(treatments);
   medicine = JSON.parse(medicine);
@@ -287,6 +289,7 @@ const updatePatient = async (req, res) => {
      medicine: medicineIds,
      medCount: medCount,
      medDates,
+     remark,
      images: fileids
    }
    try{
