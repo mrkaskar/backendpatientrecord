@@ -57,10 +57,12 @@ const addPatient = async (req, res) => {
   medicine = JSON.parse(medicine);
   let treatmentIds = [];
   let treatmentDates = [];
+  let treCount = [];
   Object.keys(treatments).forEach(tdate => {
     treatments[tdate].forEach(t => {
       treatmentDates.push(tdate);  
       treatmentIds.push(t.id); 
+      treCount.push(+t.unit);
     });
   });
   
@@ -112,6 +114,7 @@ const addPatient = async (req, res) => {
      address: address,
      date,
      treatment: treatmentIds,
+     treCount,
      treatmentDates,
      medicine: medIds,
      medCount: medCount,
@@ -150,10 +153,12 @@ const updatePatient = async (req, res) => {
 
   let treatmentIds = [];
   let treatmentDates = [];
+  let treCount = [];
   Object.keys(treatments).forEach(tdate => {
     treatments[tdate].forEach(t => {
       treatmentDates.push(tdate);  
       treatmentIds.push(t.id); 
+      treCount.push(+t.unit);
     });
   });
   
@@ -277,6 +282,7 @@ const updatePatient = async (req, res) => {
      address: address,
      date,
      treatment: treatmentIds,
+     treCount,
      treatmentDates,
      medicine: medicineIds,
      medCount: medCount,

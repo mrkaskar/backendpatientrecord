@@ -14,6 +14,7 @@ const Patient = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Treatment"
   }],
+  treCount: [Number],
   treatmentDates: [String],
   medicine: [{
     type: Schema.Types.ObjectId,
