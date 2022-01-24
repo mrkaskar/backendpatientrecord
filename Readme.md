@@ -19,7 +19,7 @@ This is a backend project for dental doctor's patient record project.
 Solving above challenges are described below. 
 
 ### How challenges are solved
-1. Implementing functional components for google drive system and consume by backend
-2. Downloading the google drive file to the server first as cache and serve to the front-end.
-3. Different domain cannot be performed seperately with cookie based authentication. It works in localhost. In production, the backend and front are merged for the same domain. 
+1. Implementing functional components for google drive system and consumed by backend
+2. Downloading the google drive file to the server as cache and serve to the front-end.
+3. Different domain cannot be performed seperately with cookie based authentication. It only works in localhost. In production, the backend and front are merged for the same domain. 
 
