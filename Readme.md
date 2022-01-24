@@ -2,6 +2,17 @@
 This project shows how to use google drive files create, read, update, delete by using node js with express. 
 ## Shwe La Won Dental Patient Record Project 
 This is a backend project for dental doctor's patient record project.
+## Tech Stack
+> Javascript
+
+> Express JS
+
+> Google oAuth
+
+> MongoDB
+
+> Google Drive Storage
+
 ### Features
 ✅ Express API routes
 
